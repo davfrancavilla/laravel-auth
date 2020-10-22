@@ -16,11 +16,11 @@
             @method('PATCH')
             <div class="form-group">
                 <label for="title">Titolo</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{$post->title}}">
+                <input type="text" class="form-control" id="title" name="title" value="{{($errors->any()) ? old('title') : $post->title}}">
             </div>
             <div class="form-group">
                 <label for="body">Testo</label>
-                <textarea class="form-control" id="body" name="body" rows="3" placeholder="Testo">{{$post->body}}</textarea>
+                <textarea class="form-control" id="body" name="body" rows="3" placeholder="Testo">{{($errors->any()) ? old('body') : $post->body}}</textarea>
             </div>
             <div class="form-group">
                 @foreach ($tags as $tag)

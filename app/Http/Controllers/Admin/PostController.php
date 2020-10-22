@@ -12,6 +12,11 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
+
+    protected $validation = [
+        'title'=>'required|min:5|max:100',
+        'body'=>'required|min:5|max:500'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +51,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         
-        $request->validate([
-            'title'=>'required|min:5|max:100',
-            'body'=>'required|min:5|max:500',
-        ]);
+        $request->validate($this->validation);
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title'], '-');
         $newPost = new Post();
@@ -57,7 +59,11 @@ class PostController extends Controller
         
         $saved = $newPost->save();
 
-        $newPost->tags()->attach($data['tags']);
+        
+        if(array_key_exists("tags",$data)){
+            $newPost->tags()->attach($data['tags']);
+        }
+
         if ($saved) {
             return redirect()->route('posts.index');
         }
@@ -95,14 +101,18 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         $data = $request->all(); //data diventa array di dati
+        $request->validate($this->validation);
         $data['slug'] = Str::slug($data['title'], '-');
         $data['updated_at'] = Carbon::now();
 
-        $post->tags()->sync($data['tags']);
+        if((array_key_exists("tags",$data))){
+            $newPost->tags()->attach($data['tags']);
+        }
 
         $post->update($data);
-        return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'modificato correttamente');
+        return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'salvato correttamente');
     }
 
     /**
