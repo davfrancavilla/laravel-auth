@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -96,6 +97,7 @@ class PostController extends Controller
     {
         $data = $request->all(); //data diventa array di dati
         $data['slug'] = Str::slug($data['title'], '-');
+        $data['updated_at'] = Carbon::now();
 
         $post->tags()->sync($data['tags']);
 
