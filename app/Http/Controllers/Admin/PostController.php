@@ -50,7 +50,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        
         $request->validate($this->validation);
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title'], '-');
@@ -108,7 +107,7 @@ class PostController extends Controller
         $data['updated_at'] = Carbon::now();
 
         if((array_key_exists("tags",$data))){
-            $newPost->tags()->attach($data['tags']);
+            $post->tags()->sync($data['tags']);
         }
 
         $post->update($data);

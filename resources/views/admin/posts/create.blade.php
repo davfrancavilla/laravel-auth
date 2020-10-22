@@ -25,7 +25,11 @@
             <div class="form-group">
                 @foreach ($tags as $tag)
                     <label for="{{$tag->name}}">{{$tag->name}}</label>
-                    <input type="checkbox" name="tags[]" id="{{$tag->name}}" value="{{$tag->id}}">
+                    <input type="checkbox" name="tags[{{ $tag->id }}]" value="{{$tag->id}}" id="{{$tag->name}}"
+                        @if (is_array(old('tags')) && in_array($tag->id, array_keys(old('tags'))))
+                            checked
+                        @endif
+                    >
                 @endforeach
             </div>
             <button type="submit" class="btn btn-primary">Invia</button>
