@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -49,7 +50,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         $request->validate([
-            'title'=>'required|min:5|max:100',
+            'title'=>'unique:posts,title|required|min:5|max:100',
             'body'=>'required|min:5|max:500',
             'image' => 'image'
         ]);
@@ -110,7 +111,10 @@ class PostController extends Controller
 
         $data = $request->all(); //data diventa array di dati
         $request->validate([
-            'title'=>'required|min:5|max:100',
+            'title' => [
+                        'required', 'min:5', 'max:100',
+                        Rule::unique('posts')->ignore($post->id),
+            ],
             'body'=>'required|min:5|max:500'
         ]);
         $data['slug'] = Str::slug($data['title'], '-');
