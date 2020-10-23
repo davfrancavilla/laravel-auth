@@ -5,7 +5,9 @@
     <div class="row">
         <div class="">
             <div class="card m-3">
-                <img class="card-img-top" src="{{Storage::url($post->img)}}" alt="{{$post->slug}}">
+                @if ($post->img)
+                <img class="card-img-top" src="{{Storage::url($post->img)}}" alt="{{$post->slug}}">  {{-- oppure asset('storage/').$post->img per il percorso dell'immagine --}}
+                 @endif
                 <div class="card-body">
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->body}}</p>
