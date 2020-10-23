@@ -10,12 +10,17 @@
                 </ul>
             </div>
         @endif
-        <form action="{{route('posts.update', $post->id)}}" method="POST">
+        <form action="{{route('posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
+            <img src="{{Storage::url($post->img)}}" alt="{{$post->slug}}" width="300px">  {{-- oppure asset('storage/').$post->img per il percorso dell'immagine --}}
             <div class="form-group">
                 <label for="title">Titolo</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{($errors->any()) ? old('title') : $post->title}}">
+            </div>
+            <div class="form-group">
+                <label for="img">Immagine</label>
+                <input type="file" class="form-control-file" id="img" name="img" accept="image/*">
             </div>
             <div class="form-group">
                 <label for="body">Testo</label>
