@@ -141,9 +141,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
-    {
+    public function destroy(Request $request, Post $post)
+    {   
         $post->delete();
-        return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
+        if((request()->headers->get('referer')) == route('guests.posts.home')){
+            return redirect()->route('guests.posts.home')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
+        } else {
+            return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
+        }
     }
 }

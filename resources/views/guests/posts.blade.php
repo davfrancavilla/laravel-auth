@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="card-deck">
             <div class="row">
             @foreach ($posts as $post)
@@ -15,6 +20,14 @@
                             <p class="card-text">{{Str::substr($post->body, 0, 100)."..."}}</p>
                             <p class="card-text"><small class="text-muted">{{$post->user->name}}</small></p>
                             <a href="{{route('guests.posts.show', $post->slug)}}" class="btn btn-primary">Dettagli</a>
+                            @if (Auth::id() == $post->user->id)
+                                <a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
+                                <form style="display: inline" action="{{route('posts.destroy', $post->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Elimina</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>    
