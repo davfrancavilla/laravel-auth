@@ -25,7 +25,7 @@ class PostsTableSeeder extends Seeder
             $newPost->img = $faker->imageUrl(640,480);
             $newPost->slug = Str::slug($newPost->title);
             $newPost->user_id = $users->random()->id;
-            $newPost->public = $faker->boolean();
+            $newPost->public = 1;
 
             $newPost->save();
         }
