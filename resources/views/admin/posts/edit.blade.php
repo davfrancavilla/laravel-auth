@@ -31,8 +31,8 @@
             <div class="form-group">
                 @foreach ($tags as $tag)
                     <label for="{{$tag->name}}">{{$tag->name}}</label>
-                    <input type="checkbox" name="tags[{{ $tag->id }}]" value="{{$tag->id}}" id="{{$tag->name}}" {{($post->tags->contains($tag->id) ? 'checked' : '')}}
-                        @if (is_array(old('tags')) && in_array($tag->id, array_keys(old('tags'))))
+                    <input type="checkbox" name="tags[{{ $tag->id }}]" value="{{$tag->id}}" id="{{$tag->name}}" {{$post->tags->contains($tag->id) ? 'checked' : ''}}
+                        @if ((is_array(old('tags')) && in_array($tag->id, array_keys(old('tags')))))
                             checked
                         @endif
                     >

@@ -120,9 +120,17 @@ class PostController extends Controller
         $data['slug'] = Str::slug($data['title'], '-');
         $data['updated_at'] = Carbon::now('Europe/Rome');
 
-        if((array_key_exists("tags",$data))){
+        if(array_key_exists("tags",$data)){
             $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->detach();
         }
+
+        if(!array_key_exists("public",$data)){
+            $data['public'] = 0; 
+        }
+
+
 
         if(!empty($data['img'])){
             if (!empty($post->img)){
