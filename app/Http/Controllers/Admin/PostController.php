@@ -52,7 +52,7 @@ class PostController extends Controller
         $request->validate([
             'title'=>'unique:posts,title|required|min:5|max:100',
             'body'=>'required|min:5|max:500',
-            'image' => 'image'
+            'image' => 'image',
         ]);
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title'], '-');
@@ -132,6 +132,7 @@ class PostController extends Controller
         }
 
         $post->update($data);
+        
         return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'salvato correttamente');
     }
 
@@ -141,13 +142,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Post $post)
+    public function destroy(Post $post)
     {   
         $post->delete();
-        if((request()->headers->get('referer')) == route('guests.posts.home')){
-            return redirect()->route('guests.posts.home')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
-        } else {
+        if((request()->headers->get('referer')) == route('posts.index')){
             return redirect()->route('posts.index')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
+        } else {
+            return redirect()->route('guests.posts.home')->with('status', 'Post'.' '.'"'.$post->title.'"'.' '.'cancellato correttamente');
         }
     }
 }

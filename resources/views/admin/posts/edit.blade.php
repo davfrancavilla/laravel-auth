@@ -38,6 +38,15 @@
                     >
                 @endforeach
             </div>
+            <div class="form-group">
+                <label for="public">Rendere il post pubblico?</label>
+                <input type="checkbox" id="public" name="public" value="1"
+                {{$post->public ? 'checked' : ''}}
+                @if (old('public'))
+                    checked
+                @endif
+                >
+            </div>
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
     </div>

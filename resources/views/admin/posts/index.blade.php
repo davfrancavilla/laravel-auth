@@ -22,7 +22,7 @@
             @foreach ($posts as $post)
                 <tr>
                 <th scope="row">{{$post->id}}</th>
-                <td>{{$post->title}}</td>
+                <td><a href="{{route('guests.posts.show', $post->slug)}}">{{$post->title}}</a></td>
                 <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a></td>
                 <td>
                     <form action="{{route('posts.destroy', $post->id)}}" method="POST">

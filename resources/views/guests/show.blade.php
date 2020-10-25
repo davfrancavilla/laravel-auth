@@ -12,7 +12,6 @@
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->body}}</p>
                     <p class="card-text"><small class="text-muted">{{$post->user->name}}</small></p>
-                    <a href="{{route('guests.posts.show', $post->slug)}}" class="btn btn-primary">Dettagli</a>
                     @if (Auth::id() == $post->user->id)
                         <a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
                         <form style="display: inline" action="{{route('posts.destroy', $post->id)}}" method="POST">
