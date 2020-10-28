@@ -64,7 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if (preg_match("/.*@company\.admin\.com/",$data['email'])){
+        if (preg_match("/.*@admin\.company\.com/",$data['email'])){
             $roleId = 2;
         } else {
             $roleId = 1;

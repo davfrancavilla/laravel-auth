@@ -39,6 +39,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if (Auth::user()->role->role == 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.index') }}">Elenco utenti</a>
+                            </li>
+                        @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('guests.posts.home') }}">Post pubblici</a>
                             </li>
