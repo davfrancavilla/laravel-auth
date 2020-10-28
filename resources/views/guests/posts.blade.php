@@ -10,7 +10,7 @@
         <div class="card-deck">
             <div class="row">
             @foreach ($posts as $post)
-                @if($post->public)
+                @if($post->public) 
                     <div class="col-sm-4">
                         <div class="card m-3">
                             @if ($post->img)
@@ -20,6 +20,13 @@
                                 <h5 class="card-title"><a href="{{route('guests.posts.show', $post->slug)}}">{{$post->title}}</a></h5>
                                 <p class="card-text">{{Str::substr($post->body, 0, 100)."..."}}</p>
                                 <p class="card-text"><small class="text-muted">{{$post->user->name}}</small></p>
+                                <p class="card-text">
+                                    @forelse ($post->tags as $tag)
+                                        <span>{{$tag->name}}</span>
+                                    @empty
+                                        <span>{{'Nessun tag'}}</span>
+                                    @endforelse
+                                </p>
                                 @if (Auth::id() == $post->user->id)
                                     <a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
                                     <form style="display: inline" action="{{route('posts.destroy', $post->id)}}" method="POST">

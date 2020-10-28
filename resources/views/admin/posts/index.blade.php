@@ -45,5 +45,4 @@
             {{$posts->links()}}
         </div>
     </div>
-    
 @endsection

@@ -22,8 +22,12 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(2);
+    {   
+        if(Auth::user()->role->role == 'admin'){
+            $posts = Post::paginate(5);
+        } elseif (Auth::user()->role->role == 'user'){
+            $posts = Post::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(2);
+        }
         return view('admin.posts.index', compact('posts'));
 
     }
