@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,9 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // prima users visto che posts prendono id da selenco users
+            RolesTableSeeder::class,
             UsersTableSeeder::class,
             PostsTableSeeder::class,
-            TagsTableSeeder::class
+            TagsTableSeeder::class,
+            
         ]);
     }
 }

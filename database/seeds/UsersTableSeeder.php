@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             $userNew->name = $faker->name;
             $userNew->email = $faker->safeEmail;
             $userNew->password = Hash::make('prova');
+            $userNew->role_id = 1;
 
             $userNew->save();
         }
