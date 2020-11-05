@@ -47,7 +47,7 @@
                             @endif 
                         @endauth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('guests.posts.home') }}">Post pubblici</a>
+                                <a class="nav-link" href="{{ route('guests.posts.home') }}">Elenco post pubblici</a>
                             </li>
                         @guest
                             <li class="nav-item">

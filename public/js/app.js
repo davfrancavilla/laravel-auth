@@ -37272,7 +37272,21 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // var $ = require( "jquery" );
+
+
+$(document).ready(function () {
+  $.ajax({
+    URL: 'http://localhost:8000/api/admin/comments',
+    METHOD: 'GET',
+    success: function success(comments) {
+      console.log(comments);
+    },
+    error: function error(_error) {
+      console.log(_error);
+    }
+  });
+});
 
 /***/ }),
 

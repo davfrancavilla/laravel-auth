@@ -27,5 +27,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('users', 'UserController', [ 'only' => [ 'index', 'show', 'edit', 'update', 'destroy' ] ]);
 });
 
+
 Route::get('posts', 'PostController@index')->name('guests.posts.home');
+
 Route::get('posts/show/{slug}', 'PostController@show')->name('guests.posts.show');
